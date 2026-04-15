@@ -1,0 +1,960 @@
+
+================================================================================
+         AI-POWERED DEVELOPER PROMPT LIBRARY — FULL SDLC EDITION
+         Stack: Python + React / Next.js | Tools: Claude, Cursor, GPT-4, Copilot
+         Author: AI-Enabled Senior Developer | Version: 1.0
+================================================================================
+
+PROMPT ENGINEERING FORMULA USED THROUGHOUT:
+[ROLE] + [TECH CONTEXT] + [TASK] + [CONSTRAINTS] + [OUTPUT FORMAT]
+
+RULES FOR MAXIMUM OUTPUT / MINIMUM TOKENS:
+- Remove filler: no "please", "can you", "I would like"
+- Always specify output format (code block, JSON, table, bullet list)
+- Add constraints to prevent hallucinations
+- Use <tags> for dynamic placeholders — swap before pasting into any AI tool
+- Prefix with tool-specific activators where noted
+
+================================================================================
+SECTION 1 — SYSTEM DESIGN & ARCHITECTURE (8 Prompts)
+================================================================================
+
+[SD-01] — Full Stack Architecture Blueprint
+---------------------------------------------------------------------------
+Role: Senior software architect.
+Stack: Python (FastAPI) backend, React/Next.js frontend, PostgreSQL database.
+Task: Design complete system architecture for <APP_NAME> which does <ONE_LINE_DESCRIPTION>.
+Constraints:
+- Scalable to 100k users
+- Microservices-ready but start monolithic
+- Include auth, file storage, background jobs
+Output:
+- ASCII system diagram
+- Component list with responsibilities
+- API contract summary (REST or GraphQL — recommend best fit)
+- Tech choices with 1-line justification each
+---------------------------------------------------------------------------
+
+[SD-02] — API Contract Design
+---------------------------------------------------------------------------
+Role: API design expert.
+Stack: FastAPI + React/Next.js.
+Task: Design RESTful API contract for <FEATURE_NAME> module.
+Entities involved: <LIST_ENTITIES e.g., User, Order, Product>
+Constraints:
+- Follow REST best practices
+- Include pagination, filtering, sorting patterns
+- JWT auth headers on protected routes
+Output: Markdown table — Method | Endpoint | Auth | Request Body | Response | Status Codes
+---------------------------------------------------------------------------
+
+[SD-03] — Database + Backend Decision
+---------------------------------------------------------------------------
+Role: Solutions architect.
+Task: Recommend database strategy for <APP_TYPE> with these requirements: <LIST_3_TO_5_REQUIREMENTS>.
+Options to evaluate: PostgreSQL vs MongoDB vs hybrid.
+Output:
+- Recommendation with reasoning (3 bullets max per option)
+- Schema approach (relational vs document vs mixed)
+- One risk per option
+---------------------------------------------------------------------------
+
+[SD-04] — Monorepo Project Structure
+---------------------------------------------------------------------------
+Role: Senior full stack developer.
+Stack: Python FastAPI + Next.js monorepo.
+Task: Generate production-grade folder structure for <APP_NAME>.
+Constraints:
+- Separate apps: /frontend, /backend, /shared
+- Include config, tests, Docker, CI/CD placeholders
+- Follow industry naming conventions
+Output: Full folder tree with 1-line comment on each folder's purpose
+---------------------------------------------------------------------------
+
+[SD-05] — Feature Breakdown (Agile-Ready)
+---------------------------------------------------------------------------
+Role: Tech lead.
+Task: Break down <FEATURE_NAME> into development tasks.
+Stack: FastAPI + Next.js + PostgreSQL.
+Constraints:
+- Each task max 4 hours of dev work
+- Ordered by dependency
+- Flag tasks that can run in parallel
+Output: Numbered task list — Task | Layer (FE/BE/DB) | Est. Hours | Depends On
+---------------------------------------------------------------------------
+
+[SD-06] — Third-Party Integration Plan
+---------------------------------------------------------------------------
+Role: Integration architect.
+Task: Plan integration of <SERVICE_NAME e.g., Stripe, Twilio, AWS S3> into FastAPI + Next.js app.
+Constraints:
+- Webhook handling
+- Error retry logic
+- Secrets management via environment variables
+Output:
+- Integration flow diagram (ASCII)
+- Key endpoints to build
+- Env variables list
+- Failure handling strategy
+---------------------------------------------------------------------------
+
+[SD-07] — Security Audit Checklist
+---------------------------------------------------------------------------
+Role: Application security expert.
+Stack: FastAPI + Next.js + PostgreSQL.
+Task: Generate security checklist for production deployment of <APP_NAME>.
+Output: Checklist grouped by — Auth | API | Database | Frontend | Infra
+Mark each as: [CRITICAL] [HIGH] [MEDIUM]
+---------------------------------------------------------------------------
+
+[SD-08] — Scaling Strategy
+---------------------------------------------------------------------------
+Role: DevOps + backend architect.
+Current stack: Single FastAPI server + Next.js + PostgreSQL on <CLOUD_PROVIDER>.
+Task: Design scaling roadmap from 1k to 1M users.
+Output:
+- 3-phase plan (1k→10k, 10k→100k, 100k→1M)
+- Bottleneck identified per phase
+- Solution per bottleneck
+- Cost implication (low/medium/high)
+---------------------------------------------------------------------------
+
+
+================================================================================
+SECTION 2 — FRONTEND: REACT / NEXT.JS (10 Prompts)
+================================================================================
+
+[FE-01] — React Component Generator
+---------------------------------------------------------------------------
+Role: Senior React developer.
+Stack: Next.js 14, TypeScript, Tailwind CSS.
+Task: Build a production-ready <COMPONENT_NAME> component.
+Requirements:
+- Props: <LIST_PROPS_WITH_TYPES>
+- Behavior: <DESCRIBE_BEHAVIOR>
+- States: loading, error, empty, populated
+Constraints:
+- No external UI libraries unless specified
+- Accessible (ARIA labels, keyboard nav)
+- Mobile responsive
+Output: Single .tsx file with props interface, component, and basic usage example
+---------------------------------------------------------------------------
+
+[FE-02] — Page with Data Fetching (Next.js)
+---------------------------------------------------------------------------
+Role: Next.js expert.
+Stack: Next.js 14 App Router, TypeScript, Tailwind CSS.
+Task: Build <PAGE_NAME> page that fetches <DATA_DESCRIPTION> from <API_ENDPOINT>.
+Constraints:
+- Use React Server Components where possible
+- Loading skeleton + error boundary
+- SEO metadata included
+- Optimistic UI updates on mutation
+Output: Full page file — layout, data fetch, UI, error/loading states
+---------------------------------------------------------------------------
+
+[FE-03] — Reusable Form with Validation
+---------------------------------------------------------------------------
+Role: Frontend engineer.
+Stack: Next.js, React Hook Form, Zod, Tailwind CSS.
+Task: Build <FORM_NAME> form.
+Fields: <LIST_FIELDS_WITH_TYPES e.g., email:string, age:number, role:enum>
+Constraints:
+- Zod schema validation
+- Inline field-level error messages
+- Submit handler calls <API_ENDPOINT>
+- Disable submit on loading
+Output: Form component + Zod schema + API call handler in one file
+---------------------------------------------------------------------------
+
+[FE-04] — State Management Setup
+---------------------------------------------------------------------------
+Role: React architect.
+Stack: Next.js 14, Zustand (or Redux Toolkit — recommend best fit).
+Task: Set up global state for <FEATURE e.g., auth, cart, notifications>.
+State shape: <DESCRIBE_STATE_SHAPE>
+Constraints:
+- Persist to localStorage where needed
+- TypeScript typed store
+- Selectors for derived state
+Output: Store file + usage example in a component
+---------------------------------------------------------------------------
+
+[FE-05] — API Integration Layer
+---------------------------------------------------------------------------
+Role: Frontend engineer.
+Stack: Next.js, Axios / React Query (TanStack Query).
+Task: Build API client layer for <MODULE_NAME> (CRUD operations).
+Base URL: <API_BASE_URL>
+Endpoints: <LIST_ENDPOINTS>
+Constraints:
+- Centralized error handling
+- JWT token injection from cookie/localStorage
+- Retry on 401 (token refresh)
+- TypeScript interfaces for all request/response types
+Output: api.ts client file + React Query hooks file
+---------------------------------------------------------------------------
+
+[FE-06] — Dashboard UI Layout
+---------------------------------------------------------------------------
+Role: UI/UX developer.
+Stack: Next.js, Tailwind CSS.
+Task: Build responsive dashboard layout for <APP_NAME>.
+Sections: Sidebar nav | Top header | Main content area | Stats cards | Data table
+Constraints:
+- Collapsible sidebar on mobile
+- Dark mode support via Tailwind
+- No external component libraries
+Output: Layout component + one stats card component + skeleton of data table
+---------------------------------------------------------------------------
+
+[FE-07] — Authentication Flow (Frontend)
+---------------------------------------------------------------------------
+Role: Senior Next.js developer.
+Stack: Next.js 14 App Router, NextAuth.js or custom JWT.
+Task: Implement complete auth flow — Login, Register, Logout, Protected Routes.
+Constraints:
+- Redirect unauthenticated users to /login
+- Store token securely (httpOnly cookie preferred)
+- Show user info in header after login
+Output: Auth provider + middleware for route protection + login/register pages
+---------------------------------------------------------------------------
+
+[FE-08] — Performance Optimization Audit
+---------------------------------------------------------------------------
+Role: Frontend performance engineer.
+Stack: Next.js 14.
+Task: Audit and fix performance issues in this component/page: <PASTE_CODE>
+Check for:
+- Unnecessary re-renders
+- Missing useMemo / useCallback
+- Image optimization (next/image)
+- Bundle size issues
+- Missing lazy loading
+Output: Annotated fixed code + bullet list of changes made with reasoning
+---------------------------------------------------------------------------
+
+[FE-09] — UI Bug Fix
+---------------------------------------------------------------------------
+Role: React debugger.
+Stack: Next.js, Tailwind CSS.
+Issue: <DESCRIBE_BUG>
+Current code: <PASTE_CODE>
+Error (if any): <PASTE_ERROR>
+Constraints:
+- Fix only what's broken, minimal changes
+- Explain root cause in 2 lines
+Output: Fixed code block + 2-line root cause explanation
+---------------------------------------------------------------------------
+
+[FE-10] — Component Test (Jest + RTL)
+---------------------------------------------------------------------------
+Role: Frontend test engineer.
+Stack: Jest, React Testing Library, Next.js.
+Task: Write complete tests for this component: <PASTE_COMPONENT_CODE>
+Cover:
+- Renders correctly
+- User interactions (click, input)
+- Loading state
+- Error state
+- API mock responses
+Output: Complete .test.tsx file, ready to run
+---------------------------------------------------------------------------
+
+
+================================================================================
+SECTION 3 — BACKEND: PYTHON / FASTAPI / DJANGO (10 Prompts)
+================================================================================
+
+[BE-01] — FastAPI Endpoint Generator
+---------------------------------------------------------------------------
+Role: Senior Python backend developer.
+Stack: FastAPI, SQLAlchemy, PostgreSQL, Pydantic v2.
+Task: Build complete CRUD API for <RESOURCE_NAME> resource.
+Fields: <LIST_FIELDS_WITH_TYPES>
+Constraints:
+- Pydantic schemas for request/response
+- SQLAlchemy ORM model
+- Dependency injection for DB session
+- HTTP exceptions with proper status codes
+- Docstrings on each endpoint
+Output: router file + schema file + model file (3 separate code blocks)
+---------------------------------------------------------------------------
+
+[BE-02] — Authentication System (JWT)
+---------------------------------------------------------------------------
+Role: Python security engineer.
+Stack: FastAPI, JWT (python-jose), bcrypt, PostgreSQL.
+Task: Build complete JWT auth system — register, login, refresh token, logout.
+Constraints:
+- Password hashing with bcrypt
+- Access token: 15min expiry
+- Refresh token: 7 days, stored in DB
+- Protected route dependency
+Output: auth router + user model + JWT utils + auth dependency (4 code blocks)
+---------------------------------------------------------------------------
+
+[BE-03] — Background Task / Job Queue
+---------------------------------------------------------------------------
+Role: Backend engineer.
+Stack: FastAPI + Celery + Redis (or FastAPI BackgroundTasks for simple cases).
+Task: Implement background job for <JOB_DESCRIPTION e.g., send email, process CSV, resize image>.
+Constraints:
+- Async where possible
+- Log task status (pending/running/done/failed)
+- Retry on failure (max 3 attempts)
+Output: Task definition + FastAPI trigger endpoint + status check endpoint
+---------------------------------------------------------------------------
+
+[BE-04] — Database Model Design (SQLAlchemy)
+---------------------------------------------------------------------------
+Role: Python ORM specialist.
+Stack: SQLAlchemy 2.0, Alembic, PostgreSQL.
+Task: Design models for <MODULE_NAME> with these entities: <LIST_ENTITIES_AND_RELATIONSHIPS>.
+Constraints:
+- Use SQLAlchemy 2.0 declarative style
+- Include created_at, updated_at timestamps
+- Proper foreign keys and relationships
+- Index on frequently queried fields
+Output: models.py + Alembic migration script
+---------------------------------------------------------------------------
+
+[BE-05] — Third-Party API Integration (Python)
+---------------------------------------------------------------------------
+Role: Python integration engineer.
+Task: Integrate <SERVICE_NAME e.g., OpenAI, Stripe, SendGrid> into FastAPI app.
+Constraints:
+- Use httpx for async HTTP calls
+- API key from environment variable
+- Retry logic with exponential backoff
+- Custom exception class for service errors
+- Typed response models (Pydantic)
+Output: service class + FastAPI endpoint using the service + .env example
+---------------------------------------------------------------------------
+
+[BE-06] — File Upload & Processing
+---------------------------------------------------------------------------
+Role: Backend engineer.
+Stack: FastAPI, AWS S3 (boto3) or local storage.
+Task: Build file upload API for <FILE_TYPE e.g., images, PDFs, CSVs>.
+Constraints:
+- Validate file type and size (max <SIZE_LIMIT>)
+- Store to S3 or /uploads directory
+- Return public URL
+- Handle concurrent uploads
+Output: Upload endpoint + storage utility + validation logic
+---------------------------------------------------------------------------
+
+[BE-07] — Middleware & Error Handling
+---------------------------------------------------------------------------
+Role: FastAPI architect.
+Task: Add production-grade middleware and error handling to FastAPI app.
+Include:
+- Global exception handler (returns JSON errors)
+- Request logging middleware (method, path, duration, status)
+- CORS configuration for <FRONTEND_URL>
+- Rate limiting (slowapi)
+Output: middleware.py + exception_handlers.py + main.py integration snippet
+---------------------------------------------------------------------------
+
+[BE-08] — Python Code Refactor
+---------------------------------------------------------------------------
+Role: Python code reviewer.
+Task: Refactor this Python code for production quality: <PASTE_CODE>
+Apply:
+- PEP 8 compliance
+- Type hints throughout
+- Replace any synchronous DB calls with async
+- Extract repeated logic into helper functions
+- Remove code smells
+Output: Refactored code + bullet list of every change made
+---------------------------------------------------------------------------
+
+[BE-09] — WebSocket Implementation
+---------------------------------------------------------------------------
+Role: Python real-time systems engineer.
+Stack: FastAPI WebSockets.
+Task: Build WebSocket server for <USE_CASE e.g., live chat, notifications, real-time dashboard>.
+Constraints:
+- Connection manager for multiple clients
+- Broadcast to all or specific client
+- Auth via JWT on connect
+- Reconnect handling
+Output: WebSocket router + connection manager class + Next.js client snippet
+---------------------------------------------------------------------------
+
+[BE-10] — Python Unit Tests
+---------------------------------------------------------------------------
+Role: Python test engineer.
+Stack: pytest, pytest-asyncio, httpx AsyncClient.
+Task: Write full test suite for this FastAPI code: <PASTE_CODE>
+Cover:
+- Happy path for each endpoint
+- Validation error cases
+- Auth failure cases
+- Mock external services
+Output: Complete test file with fixtures, mocks, and all test functions
+---------------------------------------------------------------------------
+
+
+================================================================================
+SECTION 4 — DATABASE: POSTGRESQL / MONGODB (8 Prompts)
+================================================================================
+
+[DB-01] — Schema Design
+---------------------------------------------------------------------------
+Role: Database architect.
+Database: PostgreSQL.
+Task: Design normalized schema for <APP_NAME> with these entities: <LIST_ENTITIES>.
+Constraints:
+- 3NF minimum normalization
+- Primary keys: UUID (not serial int)
+- Soft deletes (deleted_at column)
+- Audit columns: created_at, updated_at, created_by
+Output: SQL CREATE TABLE statements + ERD description in text
+---------------------------------------------------------------------------
+
+[DB-02] — Query Optimization
+---------------------------------------------------------------------------
+Role: PostgreSQL performance engineer.
+Task: Optimize this slow query: <PASTE_QUERY>
+Table sizes: <APPROXIMATE_ROW_COUNTS>
+Current execution plan: <PASTE_EXPLAIN_ANALYZE_OUTPUT or "not available">
+Constraints:
+- No schema changes, only query + index changes
+- Explain each optimization
+Output:
+- Optimized query
+- Index recommendations (CREATE INDEX statements)
+- Before/after explanation
+---------------------------------------------------------------------------
+
+[DB-03] — Index Strategy
+---------------------------------------------------------------------------
+Role: Database performance specialist.
+Database: PostgreSQL.
+Task: Design index strategy for <TABLE_NAME> with these query patterns: <LIST_COMMON_QUERIES>.
+Constraints:
+- Balance read performance vs write overhead
+- Include composite index recommendations
+- Flag any over-indexing risks
+Output: CREATE INDEX statements + table with Index | Type | Targets Query | Trade-off
+---------------------------------------------------------------------------
+
+[DB-04] — Migration Script
+---------------------------------------------------------------------------
+Role: Database engineer.
+Stack: Alembic + SQLAlchemy + PostgreSQL.
+Task: Write migration to <DESCRIBE_CHANGE e.g., add column, rename table, create relation>.
+Current schema: <PASTE_CURRENT_MODEL or DESCRIBE>
+Constraints:
+- Zero-downtime migration (backward compatible)
+- Include rollback (downgrade) function
+- Data backfill if needed
+Output: Complete Alembic migration file (upgrade + downgrade functions)
+---------------------------------------------------------------------------
+
+[DB-05] — Complex Query Builder
+---------------------------------------------------------------------------
+Role: SQL expert.
+Database: PostgreSQL.
+Task: Write SQL query for this business requirement: <DESCRIBE_REQUIREMENT>.
+Tables involved: <LIST_TABLES_AND_KEY_COLUMNS>
+Constraints:
+- Use CTEs for readability
+- Include pagination (LIMIT/OFFSET or keyset)
+- Avoid N+1 patterns
+Output: SQL query with inline comments explaining each major clause
+---------------------------------------------------------------------------
+
+[DB-06] — MongoDB Schema Design
+---------------------------------------------------------------------------
+Role: MongoDB architect.
+Task: Design document schema for <APP_NAME> — entities: <LIST_ENTITIES>.
+Constraints:
+- Embed vs reference decision with justification
+- Indexes for common query patterns
+- Consider document growth limits
+Output: JSON schema examples + embed vs reference decision table + index list
+---------------------------------------------------------------------------
+
+[DB-07] — Database Seed Script
+---------------------------------------------------------------------------
+Role: Backend developer.
+Stack: Python + SQLAlchemy / PyMongo + Faker.
+Task: Write seed script for <LIST_TABLES_OR_COLLECTIONS> with realistic test data.
+Record counts: <SPECIFY_COUNTS e.g., 100 users, 500 orders>
+Constraints:
+- Respect FK relationships and insertion order
+- Idempotent (safe to run multiple times)
+- Use Faker for realistic data
+Output: Complete seed.py script
+---------------------------------------------------------------------------
+
+[DB-08] — Backup & Recovery Plan
+---------------------------------------------------------------------------
+Role: Database administrator.
+Database: PostgreSQL on <CLOUD_PROVIDER>.
+Task: Design backup and disaster recovery plan for production database.
+Requirements: RPO <MAX_DATA_LOSS e.g., 1hr>, RTO <MAX_DOWNTIME e.g., 30min>
+Output:
+- Backup strategy (type, frequency, retention)
+- Recovery procedure (step-by-step)
+- Monitoring alerts to set up
+- Shell script for automated backup
+---------------------------------------------------------------------------
+
+
+================================================================================
+SECTION 5 — DEBUGGING & CODE REVIEW (8 Prompts)
+================================================================================
+
+[DG-01] — Error Diagnosis (Universal)
+---------------------------------------------------------------------------
+Role: Senior debugger.
+Stack: <YOUR_STACK e.g., FastAPI + Next.js>
+Error: <PASTE_FULL_ERROR_MESSAGE>
+Code causing error: <PASTE_RELEVANT_CODE>
+What I tried: <LIST_WHAT_YOU_ALREADY_TRIED>
+Output:
+- Root cause (1-2 sentences)
+- Fix (code block)
+- Prevention tip (1 sentence)
+---------------------------------------------------------------------------
+
+[DG-02] — Code Review
+---------------------------------------------------------------------------
+Role: Senior engineer doing code review.
+Stack: Python / React / Next.js (specify which applies).
+Task: Review this code for production readiness: <PASTE_CODE>
+Review for:
+- Bugs and edge cases
+- Security vulnerabilities
+- Performance issues
+- Code quality and readability
+- Missing error handling
+Output: Inline annotated version with [BUG], [SECURITY], [PERF], [STYLE] tags + summary table
+---------------------------------------------------------------------------
+
+[DG-03] — Performance Bottleneck Finder
+---------------------------------------------------------------------------
+Role: Performance engineer.
+Stack: <SPECIFY_STACK>
+Issue: <APP or API> is slow — <DESCRIBE_SYMPTOM e.g., "API takes 4s", "page loads 8s">
+Code: <PASTE_SLOW_CODE>
+Output:
+- Identified bottlenecks (numbered list)
+- Fix for each bottleneck (code block)
+- Expected improvement per fix (estimate %)
+---------------------------------------------------------------------------
+
+[DG-04] — Memory Leak Detection (Python)
+---------------------------------------------------------------------------
+Role: Python memory specialist.
+Task: Identify memory leaks in this code: <PASTE_CODE>
+Symptoms: <DESCRIBE e.g., RAM grows 50MB/hr>
+Output:
+- Memory leak locations identified
+- Fixed code
+- Memory profiling snippet to verify fix
+---------------------------------------------------------------------------
+
+[DG-05] — API Debugging
+---------------------------------------------------------------------------
+Role: API debugger.
+Stack: FastAPI + Next.js.
+Issue: API call from frontend fails — <DESCRIBE_FAILURE e.g., 422, CORS error, timeout>
+Frontend request code: <PASTE>
+Backend endpoint code: <PASTE>
+Error: <PASTE_ERROR>
+Output:
+- Root cause
+- Fix on frontend AND backend side
+- curl command to test endpoint in isolation
+---------------------------------------------------------------------------
+
+[DG-06] — React Re-render Issue
+---------------------------------------------------------------------------
+Role: React performance debugger.
+Issue: Component re-renders too often causing <DESCRIBE_SYMPTOM>.
+Component code: <PASTE>
+Parent code: <PASTE>
+Output:
+- Re-render cause identified
+- Fixed code using useMemo/useCallback/memo
+- Explanation of why each change helps
+---------------------------------------------------------------------------
+
+[DG-07] — Async/Await Bug Fix (Python)
+---------------------------------------------------------------------------
+Role: Python async expert.
+Issue: <DESCRIBE_ASYNC_BUG e.g., coroutine not awaited, event loop conflict, deadlock>
+Code: <PASTE>
+Error: <PASTE>
+Output:
+- Root cause
+- Fixed async code
+- Note on correct async pattern to follow
+---------------------------------------------------------------------------
+
+[DG-08] — Dependency / Import Error
+---------------------------------------------------------------------------
+Role: Python / Node.js environment debugger.
+Error: <PASTE_IMPORT_OR_DEPENDENCY_ERROR>
+Environment: <OS + Python/Node version + virtual env info>
+requirements.txt or package.json: <PASTE>
+Output:
+- Exact cause
+- Fix command(s) to run
+- Potential conflict to watch for
+---------------------------------------------------------------------------
+
+
+================================================================================
+SECTION 6 — DEVOPS & DEPLOYMENT (7 Prompts)
+================================================================================
+
+[DO-01] — Dockerfile (Full Stack)
+---------------------------------------------------------------------------
+Role: DevOps engineer.
+Stack: FastAPI backend + Next.js frontend.
+Task: Write production-optimized Dockerfiles for both services.
+Constraints:
+- Multi-stage builds (minimize image size)
+- Non-root user
+- Health check endpoint
+- Environment variables via ARG/ENV
+Output: Dockerfile.backend + Dockerfile.frontend + .dockerignore for each
+---------------------------------------------------------------------------
+
+[DO-02] — Docker Compose (Local Dev + Production)
+---------------------------------------------------------------------------
+Role: DevOps engineer.
+Services needed: FastAPI + Next.js + PostgreSQL + Redis + Nginx (reverse proxy).
+Task: Write docker-compose.yml for local dev and docker-compose.prod.yml for production.
+Constraints:
+- Named volumes for data persistence
+- Health checks between services
+- Env file support (.env)
+- Nginx config for routing /api to backend, / to frontend
+Output: docker-compose.yml + docker-compose.prod.yml + nginx.conf + .env.example
+---------------------------------------------------------------------------
+
+[DO-03] — CI/CD Pipeline (GitHub Actions)
+---------------------------------------------------------------------------
+Role: CI/CD engineer.
+Stack: FastAPI + Next.js, deploy target: <AWS ECS / Render / Railway / VPS>.
+Task: Write GitHub Actions workflow for CI/CD pipeline.
+Stages: lint → test → build → deploy
+Constraints:
+- Run backend tests (pytest) + frontend tests (Jest)
+- Build Docker images on merge to main
+- Deploy to <DEPLOY_TARGET> on success
+- Secrets managed via GitHub Secrets
+Output: .github/workflows/ci-cd.yml complete file
+---------------------------------------------------------------------------
+
+[DO-04] — Nginx Configuration
+---------------------------------------------------------------------------
+Role: DevOps / SysAdmin.
+Task: Write Nginx config for <APP_NAME>.
+Requirements:
+- Reverse proxy: /api → FastAPI (port 8000), / → Next.js (port 3000)
+- SSL/HTTPS with Let's Encrypt (certbot)
+- Gzip compression
+- Rate limiting on /api routes
+- WebSocket proxy support
+Output: Complete nginx.conf + certbot setup commands
+---------------------------------------------------------------------------
+
+[DO-05] — Environment Configuration
+---------------------------------------------------------------------------
+Role: DevOps engineer.
+Task: Design environment configuration strategy for FastAPI + Next.js app.
+Environments: development, staging, production
+Constraints:
+- Secrets never in code (use .env + secret manager)
+- Different DB/Redis URLs per env
+- Next.js NEXT_PUBLIC_ prefix rules
+Output: .env.example (full) + config loading code for FastAPI + Next.js config snippet
+---------------------------------------------------------------------------
+
+[DO-06] — Cloud Deployment Guide
+---------------------------------------------------------------------------
+Role: Cloud deployment specialist.
+Stack: FastAPI + Next.js + PostgreSQL.
+Target: <AWS / GCP / Railway / Render / DigitalOcean — specify>
+Task: Write step-by-step deployment guide for production.
+Constraints:
+- Use managed database service
+- Auto-scaling ready
+- Cost-optimized for startup scale
+Output: Numbered deployment steps + infrastructure checklist + estimated monthly cost
+---------------------------------------------------------------------------
+
+[DO-07] — Monitoring & Logging Setup
+---------------------------------------------------------------------------
+Role: DevOps observability engineer.
+Stack: FastAPI + Next.js + PostgreSQL.
+Task: Set up monitoring and logging for production.
+Include:
+- Structured logging (FastAPI → JSON logs)
+- Error tracking (Sentry integration)
+- Uptime monitoring
+- Database query logging
+- Performance metrics
+Output: Logging config code + Sentry setup snippets + monitoring checklist
+---------------------------------------------------------------------------
+
+
+================================================================================
+SECTION 7 — TESTING & QA (7 Prompts)
+================================================================================
+
+[TQ-01] — Backend Test Suite Generator
+---------------------------------------------------------------------------
+Role: Python QA engineer.
+Stack: pytest, pytest-asyncio, httpx, FastAPI TestClient.
+Task: Generate full test suite for <MODULE_NAME> module.
+Code to test: <PASTE_CODE>
+Cover:
+- Unit tests for service/business logic
+- Integration tests for API endpoints
+- Edge cases and error paths
+- Auth-protected route tests
+Output: Complete conftest.py with fixtures + test_<module>.py file
+---------------------------------------------------------------------------
+
+[TQ-02] — Frontend E2E Tests (Playwright)
+---------------------------------------------------------------------------
+Role: QA automation engineer.
+Stack: Playwright + Next.js.
+Task: Write E2E tests for <USER_FLOW e.g., signup → login → dashboard → create item>.
+App URL: <BASE_URL>
+Constraints:
+- Page Object Model pattern
+- Screenshot on failure
+- Test data cleanup after each test
+Output: Complete Playwright test file + page object files
+---------------------------------------------------------------------------
+
+[TQ-03] — API Load Test
+---------------------------------------------------------------------------
+Role: Performance QA engineer.
+Stack: Python + Locust.
+Task: Write load test for <API_ENDPOINT> that simulates <USAGE_PATTERN>.
+Target: <CONCURRENT_USERS> users, <DURATION> minutes.
+Constraints:
+- Ramp-up period (0 to target over 2 min)
+- Assert p95 response time < <TARGET_MS>ms
+- Auth flow included in test setup
+Output: locustfile.py + run command + metrics to watch
+---------------------------------------------------------------------------
+
+[TQ-04] — Test Coverage Report Fix
+---------------------------------------------------------------------------
+Role: QA engineer.
+Task: Identify untested code paths in this module and write tests to reach 80%+ coverage.
+Code: <PASTE_CODE>
+Current coverage report: <PASTE_COVERAGE_OUTPUT or "not available">
+Output:
+- List of untested paths
+- Tests to cover each path
+- Command to run coverage report
+---------------------------------------------------------------------------
+
+[TQ-05] — Mock & Stub Generator
+---------------------------------------------------------------------------
+Role: Python test engineer.
+Task: Write mocks/stubs for these external dependencies in this test file: <PASTE_TEST_CODE>
+Dependencies to mock: <LIST e.g., boto3 S3, SendGrid API, Stripe>
+Stack: pytest + unittest.mock.
+Output: Complete mock setup with patch decorators + usage in test functions
+---------------------------------------------------------------------------
+
+[TQ-06] — React Component Tests (RTL)
+---------------------------------------------------------------------------
+Role: Frontend test engineer.
+Stack: Jest + React Testing Library + MSW (Mock Service Worker).
+Task: Write tests for this component: <PASTE_COMPONENT>
+Cover:
+- Initial render
+- Loading state
+- API success state
+- API error state
+- User interactions
+Output: Complete .test.tsx + MSW handler file for API mocking
+---------------------------------------------------------------------------
+
+[TQ-07] — Bug Report → Test Case
+---------------------------------------------------------------------------
+Role: QA engineer.
+Bug report: <PASTE_BUG_DESCRIPTION>
+Affected code: <PASTE_CODE>
+Stack: pytest / Jest (specify).
+Task: Write a failing test that reproduces this bug, then write the fix that makes it pass.
+Output:
+- Failing test (reproduces bug)
+- Bug fix code
+- Passing test (confirms fix)
+---------------------------------------------------------------------------
+
+
+================================================================================
+SECTION 8 — BONUS: CURSOR / COPILOT / IDE-SPECIFIC PROMPTS (5 Prompts)
+================================================================================
+
+[IDE-01] — Cursor: Full Feature Implementation
+---------------------------------------------------------------------------
+Use in: Cursor Chat or Composer (Ctrl+I)
+---------------------------------------------------------------------------
+Implement <FEATURE_NAME> feature end-to-end.
+
+Files to create/modify:
+- Backend: <LIST_FILES>
+- Frontend: <LIST_FILES>
+- Database: <LIST_FILES>
+
+Requirements:
+<LIST_3_TO_5_REQUIREMENTS>
+
+Follow existing patterns in the codebase.
+Do not install new packages without listing them first.
+Show me a summary of all changes before writing any code.
+---------------------------------------------------------------------------
+
+[IDE-02] — Cursor: Refactor Existing Code
+---------------------------------------------------------------------------
+Use in: Cursor — select code → Ctrl+K
+---------------------------------------------------------------------------
+Refactor this code:
+- Apply <SPECIFIC_PATTERN e.g., repository pattern, SOLID principles>
+- Keep all existing behavior (no functionality changes)
+- Improve: readability, type safety, error handling
+- Stack: <STACK>
+List every change you make as a comment above the relevant block.
+---------------------------------------------------------------------------
+
+[IDE-03] — Copilot: Inline Function Completion
+---------------------------------------------------------------------------
+Use in: VS Code with Copilot — type this as a comment above your function
+---------------------------------------------------------------------------
+# <FUNCTION_NAME>(params: <TYPES>) -> <RETURN_TYPE>
+# Purpose: <ONE_LINE_DESCRIPTION>
+# Input: <DESCRIBE_INPUT>
+# Output: <DESCRIBE_OUTPUT>
+# Constraints: <ANY_EDGE_CASES_TO_HANDLE>
+# Stack: <STACK>
+def <FUNCTION_NAME>():
+---------------------------------------------------------------------------
+
+[IDE-04] — Cursor: Codebase Q&A
+---------------------------------------------------------------------------
+Use in: Cursor Chat with @codebase
+---------------------------------------------------------------------------
+@codebase
+Where is <FUNCTIONALITY e.g., JWT auth, file upload, email sending> implemented?
+Show me:
+1. The main function/class
+2. Where it's called from
+3. Any tests covering it
+4. The config/env variables it uses
+---------------------------------------------------------------------------
+
+[IDE-05] — Claude: Iterative Build (Multi-turn Strategy)
+---------------------------------------------------------------------------
+Use in: Claude.ai — paste this as your FIRST message when starting a new feature
+---------------------------------------------------------------------------
+We are building <FEATURE_NAME> for a <APP_TYPE> using Python FastAPI + Next.js.
+
+Before writing any code:
+1. Ask me 3 clarifying questions if anything is ambiguous
+2. Output a build plan: steps numbered, each with layer (FE/BE/DB) and file name
+3. Wait for my approval before starting
+
+On each step:
+- Write one file at a time
+- End each message with: "Step X complete. Ready for step X+1?"
+- Flag any assumption you make inline as [ASSUMPTION: ...]
+
+Start now.
+---------------------------------------------------------------------------
+
+
+================================================================================
+SECTION 9 — META PROMPTS (Use These to Improve Any Prompt)
+================================================================================
+
+[META-01] — Prompt Improver
+---------------------------------------------------------------------------
+Role: Prompt engineering expert.
+Task: Improve this prompt for use with <Claude / GPT-4 / Cursor>:
+<PASTE_YOUR_PROMPT>
+Goals: reduce tokens, increase output precision, add missing context.
+Output: Improved prompt only — no explanation needed.
+---------------------------------------------------------------------------
+
+[META-02] — Turn Vague Idea into Dev Prompt
+---------------------------------------------------------------------------
+Role: Senior developer + prompt engineer.
+Task: I want to build: <VAGUE_IDEA_IN_PLAIN_ENGLISH>
+Stack: Python FastAPI + Next.js.
+Convert this into a precise development prompt I can give to an AI coding tool.
+Include: role, context, task, constraints, output format.
+Output: Ready-to-use prompt — nothing else.
+---------------------------------------------------------------------------
+
+[META-03] — Chunking Strategy for Long Tasks
+---------------------------------------------------------------------------
+Role: Prompt engineer.
+Task: This feature is too large for one AI context window: <DESCRIBE_FEATURE>
+Break it into the smallest independent chunks that can be built and tested separately.
+Output: Ordered chunk list — Chunk | What to build | Input required | Output produced
+---------------------------------------------------------------------------
+
+
+================================================================================
+QUICK REFERENCE — PROMPT VARIABLES CHEAT SHEET
+================================================================================
+
+Replace these placeholders before using any prompt:
+
+<APP_NAME>              → Your application name (e.g., "TaskFlow", "EcomDash")
+<FEATURE_NAME>          → Feature you're building (e.g., "user notifications")
+<RESOURCE_NAME>         → API resource (e.g., "Product", "Order", "User")
+<LIST_FIELDS_WITH_TYPES> → e.g., "name: str, price: float, category: enum[A,B,C]"
+<DESCRIBE_BUG>          → What's broken and expected behavior
+<PASTE_CODE>            → Your actual code
+<PASTE_ERROR>           → Full error message + stack trace
+<CLOUD_PROVIDER>        → AWS / GCP / DigitalOcean / Railway / Render
+<DEPLOY_TARGET>         → Where you deploy (e.g., AWS ECS, Render.com)
+<API_ENDPOINT>          → e.g., POST /api/v1/orders
+<STACK>                 → Specify exact versions if relevant
+
+================================================================================
+TOKEN-SAVING TIPS
+================================================================================
+
+1. Use section headers as "system context" — paste only the relevant section
+2. Add "No explanation unless asked" to any prompt to cut output by 30%
+3. Add "Code only" to pure generation tasks
+4. Use "Continue from [FUNCTION_NAME]" instead of re-pasting full context
+5. Add "Diff only" when asking for edits to existing code
+6. Prefix with "BRIEF:" for quick answers, "DETAILED:" for deep dives
+7. Use numbered constraints — AI tools follow lists more precisely than prose
+8. Always end with explicit output format — it eliminates clarification rounds
+
+================================================================================
+TOOL-SPECIFIC ACTIVATORS
+================================================================================
+
+Claude:      Start with "Role: ..." — Claude follows role prompts very precisely
+GPT-4:       Start with "Act as ..." — GPT-4 responds well to persona framing
+Cursor:      Use @codebase, @file, @docs for context injection
+Copilot:     Use inline comments directly above the code you want generated
+All tools:   End prompt with "Output format: ..." for structured responses
+
+================================================================================
+END OF PROMPT LIBRARY
+Total Prompts: 63 | Stack: Python + React/Next.js | Version: 1.0
+================================================================================
